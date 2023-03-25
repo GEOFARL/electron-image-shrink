@@ -1,0 +1,22 @@
+{
+  "name": "electron-image-shrink",
+  "version": "1.0.0",
+  "description": "App to optimize images",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GEOFARL/electron-image-shrink.git"
+  },
+  "author": "Maxim Tsyganok",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GEOFARL/electron-image-shrink/issues"
+  },
+  "homepage": "https://github.com/GEOFARL/electron-image-shrink#readme",
+  "devDependencies": {
+    "electron": "^23.2.0"
+  }
+}
