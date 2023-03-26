@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain } = require('electron');
 
 // Set environment
 process.env.NODE_ENV = 'development';
@@ -90,6 +90,10 @@ const menu = [
       ]
     : []),
 ];
+
+ipcMain.on('image:minimize', (e, options) => {
+  console.log(options);
+});
 
 app.on('ready', () => {
   createMainWindow();
