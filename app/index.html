@@ -78,6 +78,13 @@
           quality,
         });
       });
+
+      ipcRenderer.on('image:done', () => {
+        M.toast({
+          html: `image resized to ${slider.value}% quality`,
+          displayLength: 15000,
+        });
+      });
     </script>
   </body>
 </html>
