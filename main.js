@@ -12,15 +12,24 @@ let aboutWindow;
 function createMainWindow() {
   mainWindow = new BrowserWindow({
     title: 'ImageShrink',
-    width: 500,
+    width: isDev ? 800 : 500,
     height: 600,
     icon: './assets/icons/Icon_256x256.png',
     resizable: isDev,
     backgroundColor: 'white',
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true,
+    },
   });
 
   // Using loadURL
   // mainWindow.loadURL(`file://${__dirname}/app/index.html`);
+
+  if (isDev) {
+    mainWindow.webContents.openDevTools();
+  }
   mainWindow.loadFile(`${__dirname}/app/index.html`);
 }
 
