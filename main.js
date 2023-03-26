@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, globalShortcut } = require('electron');
+const { app, BrowserWindow, Menu } = require('electron');
 
 // Set environment
 process.env.NODE_ENV = 'development';
@@ -7,6 +7,7 @@ const isDev = process.env.NODE_ENV !== 'production';
 const isMac = process.platform === 'darwin';
 
 let mainWindow;
+let aboutWindow;
 
 function createMainWindow() {
   mainWindow = new BrowserWindow({
@@ -23,11 +24,49 @@ function createMainWindow() {
   mainWindow.loadFile(`${__dirname}/app/index.html`);
 }
 
+function createAboutWindow() {
+  aboutWindow = new BrowserWindow({
+    title: 'About ImageShrink',
+    width: 300,
+    height: 300,
+    icon: './assets/icons/Icon_256x256.png',
+    resizable: false,
+    backgroundColor: 'white',
+  });
+
+  aboutWindow.loadFile(`${__dirname}/app/about.html`);
+}
+
 const menu = [
-  ...(isMac ? [{ role: 'appMenu' }] : []),
+  ...(isMac
+    ? [
+        {
+          label: app.name,
+          submenu: [
+            {
+              label: 'About',
+              click: createAboutWindow,
+            },
+          ],
+        },
+      ]
+    : []),
   {
     role: 'fileMenu',
   },
+  ...(!isMac
+    ? [
+        {
+          label: 'Help',
+          submenu: [
+            {
+              label: 'About',
+              click: createAboutWindow,
+            },
+          ],
+        },
+      ]
+    : []),
   ...(isDev
     ? [
         {
@@ -48,11 +87,6 @@ app.on('ready', () => {
 
   const mainMenu = Menu.buildFromTemplate(menu);
   Menu.setApplicationMenu(mainMenu);
-
-  globalShortcut.register('CmdOrCtrl+R', () => mainWindow.reload());
-  globalShortcut.register(isMac ? 'Command+Alt+I' : 'Ctrl+Shift+I', () =>
-    mainWindow.toggleDevTools()
-  );
 
   mainWindow.on('closed', () => (mainWindow = null));
 });
