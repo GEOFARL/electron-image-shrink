@@ -9,7 +9,7 @@ const log = require('electron-log');
 log.transports.file.resolvePath = () => __dirname + '/log.log';
 
 // Set environment
-process.env.NODE_ENV = 'development';
+process.env.NODE_ENV = 'production';
 
 const isDev = process.env.NODE_ENV !== 'production';
 const isMac = process.platform === 'darwin';
